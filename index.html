@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peter – Der Gedankenleser</title>
+
+<style>
+body {
+    background: #101827;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px 15px;
+}
+
+.phone {
+    max-width: 350px;
+    margin: auto;
+    padding: 35px 20px;
+    background: #1e293b;
+    border-radius: 25px;
+}
+
+h1 { font-size: 28px; }
+
+.avatar {
+    font-size: 75px;
+    margin: 25px;
+}
+
+button {
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+#status {
+    margin-top: 25px;
+    color: #cbd5e1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+    <h1>Peter</h1>
+    <p>Der Gedankenleser</p>
+
+    <div class="avatar">👨🏻</div>
+
+    <p id="status">Peter wartet auf deinen Anruf ...</p>
+
+    <button id="call">📞</button>
+
+    <audio id="audio" src="peter.mp3" preload="auto"></audio>
+</div>
+
+<script>
+const audio = document.getElementById("audio");
+const button = document.getElementById("call");
+const statusText = document.getElementById("status");
+
+button.addEventListener("click", async () => {
+    button.disabled = true;
+    statusText.textContent = "Peter spricht ...";
+
+    try {
+        await audio.play();
+    } catch (error) {
+        statusText.textContent = "Audio konnte nicht gestartet werden.";
+        button.disabled = false;
+    }
+});
+
+audio.addEventListener("ended", () => {
+    statusText.textContent = "Anruf beendet.";
+    button.textContent = "📞";
+    button.disabled = false;
+});
+</script>
+
+</body>
+</html>
